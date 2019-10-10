@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useState, useRef } from 'react';
 import {
   Text,  
   FlatList,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  
 } from "react-native";
 import PropTypes from "prop-types";
+import { Animated,Easing } from "react-native";
+
+
 
 import styles from "./styles";
 import CardItem from "./components/CardItem";
 import Advertising from "./components/Advertising";
-import LastRegisters from "./components/LastRegisters";
+import LastRegisters from "./components/LastRegisters"; 
+import { Transitioning, Transition } from 'react-native-reanimated'; 
 
 export default function Presentational(props) {
-  const { cardItems,onPressCloseButton } = props;
+  const { cardItems,onPressCloseButton,transition,navigation,opacity,fadeOut } = props;
+  const ref = useRef();
 
   renderRegisters = () => {
   keyExtractor = item => item.title;
@@ -32,11 +38,11 @@ export default function Presentational(props) {
 
 
 
-  renderCardItem = ({ item }) => <CardItem cardItem={item} />;
+  renderCardItem = ({ item }) => <CardItem cardItem={item} navigation={navigation} opacity={opacity} fadeOut={fadeOut}/>;
 
-  renderAdvertising = () => <Advertising />;
+  renderAdvertising = () => <Advertising opacity={opacity}/>;
 
-  renderLastRegisters = () => <LastRegisters />;
+  renderLastRegisters = () => <LastRegisters opacity={opacity}/>;
 
   renderTitleRegister = () => (
     <View style={styles.titleArea}>
@@ -45,7 +51,7 @@ export default function Presentational(props) {
   );
 
   renderCloseButton = () => (
-    <TouchableOpacity  style={styles.closeButton} onPress={onPressCloseButton}>
+    <TouchableOpacity  style={styles.closeButton} onPress={()=>onPressCloseButton(ref)}>
         <Text style={styles.closeIcon}>X</Text>
     </TouchableOpacity>
   );
@@ -63,11 +69,14 @@ export default function Presentational(props) {
     const registers = renderRegisters();
 
     return (
-      <View style={styles.registerScreen}>
+      <Animated.View style={[styles.registerScreen]}
+      ref={ref}
+      transition={transition}>
         {title}
         {registers}
         {closeArea}
-      </View>
+        
+      </Animated.View>
     );
   };
 

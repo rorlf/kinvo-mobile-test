@@ -49,11 +49,13 @@ export default class Advertising extends Component {
     const { title, message, colorTitle } = this.dataApi;
     const { closeAdvertising } = this;
     const { isVisible } = this.state;
+    const {opacity} = this.props
    
 
     if (isVisible)
       return React.createElement(Presentational, {
         ...this.state,
+        opacity,
         title,
         message,
         colorTitle,

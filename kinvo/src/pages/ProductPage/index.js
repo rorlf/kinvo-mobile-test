@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import ProductApi from "../../service/products/ProductApi";
+import ProductApi from "../../services/ProductApi";
 import Presentational from "./presentational";
-import { formatMoney, formatProfitability } from "../../util/formatter";
-import ProductType from "../../util/productType";
+import { formatMoney, formatProfitability } from "../../shared/utils/formatter";
+// import ProductType from "../../shared/enums/productType";
+import ProductType from "../../common/enums/ProductType";
 
 export default class Products extends Component {
   constructor(props) {
@@ -69,8 +70,9 @@ export default class Products extends Component {
     financialInstitutionName: product.financialInstitutionName,
     equity: formatMoney(product.equity),
     profitability: formatProfitability(product.profitability),
-    colorOfProduct: ProductType.getColor(product.productTypeId)
-  });
+    colorOfProduct: ProductType.get(product.productTypeId).color
+  })
+  
 
   onRefreshProductsList = () => {
     this.clearSearchText();
@@ -84,7 +86,7 @@ export default class Products extends Component {
     }));
   };
 
-  filterProducts = searchText => {
+    filterProducts = function(searchText) {
     const { products } = this.state;
 
     matchesSearch = product => {

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, TouchableOpacity } from "react-native";
-import { MaterialTopTabBar } from "react-navigation";
+import { MaterialTopTabBar } from 'react-navigation-tabs';
+
 import Icon from "react-native-vector-icons/MaterialIcons";
 import styles from "./styles";
 

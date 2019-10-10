@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList ,Animated} from "react-native";
 import styles from "./styles";
 import LastRegisterItem from "./components/lastRegisterItem";
 
 export default function Presentational(props) {
-  const { dataApi } = props;
+  const { dataApi,opacity } = props;
+ 
   
 
   renderLastRegistersText = () => (
@@ -42,11 +43,11 @@ export default function Presentational(props) {
   const content = renderContent();
 
   return (
-    <View
-      style={styles.container}
+    <Animated.View
+      style={[{opacity:opacity },styles.container]}
     >
       {content}
-    </View>
+    </Animated.View>
   );
 }
 Presentational.propTypes = {

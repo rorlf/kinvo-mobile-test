@@ -1,10 +1,20 @@
-import React from "react";
+import React,{ useState, useRef }  from "react";
 import PropTypes from "prop-types";
 import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
 import styles from "./styles";
+import { Transitioning, Transition } from 'react-native-reanimated'; 
+import { Animated,Easing } from "react-native";
+
+
+
 
 export default function Presentational(props) {
   const { title, color, message } = props.cardItem;
+  const {visible,onPress,transY,opacidade} = props
+  const ref = useRef();
+
+ 
+
 
   renderCardName = () => (    
       <Text style={styles.cardName}>{title}</Text>   
@@ -67,20 +77,45 @@ export default function Presentational(props) {
     const titleAndIconAndButton = renderTitleAndIconAndPlusButtonCard();
     const messageText = renderMessage();
     const divider = renderDivider();
+    if(!visible){
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=> onPress(ref)}>
         {titleAndIconAndButton}
         {divider}
         {messageText}
       </TouchableOpacity>
     );
+  }
   };
 
 
 
   const card = renderCard();
 
-  return <View style={styles.container}>{card}</View>;
+  const transition = (
+    <Transition.Sequence>
+      <Transition.Out type="slide-left" durationMs={4000} interpolation="easeIn" />
+      <Transition.Change />
+      <Transition.Together>
+        <Transition.In
+          type="slide-left"
+          durationMs={40000}
+          interpolation="easeOut"
+          propagation="bottom"
+        />
+        <Transition.In type="slide-left" durationMs={20000} delayMs={200} />
+      </Transition.Together>
+    </Transition.Sequence>
+  );
+
+  return <Animated.View 
+  ref={ref}
+      transition={transition}
+      style={[styles.container,{transform: [{ translateY: transY }],opacity:opacidade}]}
+      
+      >{card}
+      
+      </Animated.View>;
 }
 
 Presentational.propTypes = {

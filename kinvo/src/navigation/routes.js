@@ -1,10 +1,18 @@
 import WalletTabs from "./WalletTabs";
 import NavigationTabs from "./NavigationTabs";
 import React from "react";
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
+// import { createStackNavigator, createSwitchNavigator} from "react-navigation";
+import { Animated,Easing } from "react-native";
 
-import { createBottomTabNavigator, createStackNavigator } from "react-navigation";
+import {createStackNavigator} from 'react-navigation-stack';
+
 import Working from "../pages/WorkingPage";
 import RegisterPage from "../pages/RegisterPage";
+import NewProductPage from "../pages/NewProductPage";
+
+import { Transition } from 'react-native-reanimated';
 
 const Pages = createBottomTabNavigator(
   {
@@ -29,6 +37,7 @@ const Pages = createBottomTabNavigator(
   {
     initialRouteName: "Wallet",  
     tabBarComponent: NavigationTabs,
+  
    
   }
 );
@@ -42,10 +51,22 @@ const Routes = createStackNavigator(
       Main: {
         screen: Pages,     
       },
+      NewProduct: {
+        screen: NewProductPage,     
+      },
+    
 
     },{
       initialRouteName: "Main",  
-      headerMode:'none'
+      headerMode:'none',
+      backBehavior:'history',
+      transitionConfig : () => ({
+        transitionSpec: {
+          duration: 0,
+          timing: Animated.timing,
+          easing: Easing.step0,
+        },
+      }),  
     }
 )
 

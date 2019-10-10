@@ -15,7 +15,8 @@ export default function Presentational(props) {
     isVisible,
     closeAdvertising,
     fadeValue,
-    swipeBackAdvertising
+    swipeBackAdvertising,
+    opacity
   } = props;
 
   renderBannerImage = () => (
@@ -104,7 +105,7 @@ export default function Presentational(props) {
 
     return (
       <Animated.View
-        style={{ transform: [{ translateX: swipeBackAdvertising }] }}
+        style={{opacity:opacity, transform: [{ translateX: swipeBackAdvertising }] }}
       >
         <TouchableOpacity activeOpacity={0.9} style={styles.advertisingArea}>
           {bannerImage}

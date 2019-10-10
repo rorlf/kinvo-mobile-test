@@ -1,6 +1,6 @@
 import React from "react";
 import Products from "../../pages/ProductPage";
-import { createMaterialTopTabNavigator } from "react-navigation";
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import TabBar from "./components/TabBar";
 import styles from "./styles";
 

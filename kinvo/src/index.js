@@ -2,7 +2,7 @@ import React from "react";
 import { StatusBar } from "react-native";
 
 import { createAppContainer, SafeAreaView } from "react-navigation";
-import Routes from "./navigator/routes";
+import Routes from "./navigation/routes";
 
 const AppNavigator = Routes;
 const AppContainer = createAppContainer(AppNavigator);

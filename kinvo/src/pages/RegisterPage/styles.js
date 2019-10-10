@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import metrics from "../../styles/metrics";
+import metrics from "../../shared/styles/metrics";
 
 const styles = StyleSheet.create({
   container: {
@@ -31,10 +31,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderBottomColor: "#DAE0E3",
-    borderBottomWidth: metrics.border
+    borderBottomWidth: metrics.border,
+    height:metrics.bottomNavigationBarHeight
   },
   titleText: {
-    margin: metrics.space2X,
     color: "#627179",
     fontWeight: "bold"
   },

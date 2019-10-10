@@ -30,9 +30,11 @@ export default class LastRegisters extends Component {
     render() {
 
         const {dataApi} = this
+    const {opacity} = this.props
 
         return React.createElement(Presentational, {
-            dataApi
+            dataApi,
+            opacity
         });
     }
 }
