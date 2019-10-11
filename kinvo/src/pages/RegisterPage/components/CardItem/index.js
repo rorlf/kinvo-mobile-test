@@ -15,15 +15,9 @@ export default class CardItem extends Component {
   } 
   
 
-  upAnimation = async(py,height)=> {  
+  upAnimation = async(offset,height)=> {  
     this.setState(prevState => ({ ...prevState, animating: true }));
-    let offset 
-
-    Platform.select({
-        ios: offset = -1*(py-65-(height/2)),
-        android: offset = -1*(py-75),
-        // tamanho mais margem
-      })
+   
 
     await Animated.sequence([
         Animated.timing(this.state.transY, {
@@ -33,7 +27,7 @@ export default class CardItem extends Component {
           }),   
         Animated.timing(this.state.transY, {
             toValue: offset,
-            duration: 800,
+            duration: 900,
             useNativeDriver:true
 
           }),          
@@ -58,8 +52,15 @@ export default class CardItem extends Component {
         // alert('Y offset to frame: ' + fy)
         console.log('X offset to page: ' + px)
         // alert('Y offset to page: ' + py)
-      this.upAnimation(py,height)
-    this.props.fadeOut()
+        let offset 
+
+        Platform.select({
+            ios: offset = -1*(py-65-(height/2)),
+            android: offset = -1*(py-75),
+            // tamanho mais margem
+          })
+      this.upAnimation(offset,height)
+    this.props.selectOption(offset)
 
 
     })

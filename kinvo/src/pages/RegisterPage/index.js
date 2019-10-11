@@ -30,9 +30,11 @@ export default class Registers extends Component {
   },   
 
 ]; 
-opacity = new Animated.Value(1.1)
+opacity = new Animated.Value(0)
+showOption = false
+offset = 0
 
-    this.state = {cardItems,opacity}
+    this.state = {cardItems,opacity,showOption,offset}
  
   }
   
@@ -45,15 +47,35 @@ onPressCloseButton = (ref) => {
     
 }
 
-fadeOut = ()=> {
+selectOption = (value)=> {
+  this.setState(prevState => ({
+    ...prevState,
+    offset:value
+  }))
 
 
   Animated.timing(this.state.opacity, {
-    toValue: 0.0,
-    duration: 1100,
+    toValue: 1,
+    duration: 1200,
     useNativeDriver:true
 
-  }).start()
+  }).start(()=> this.secondAnimation())
+ 
+
+
+}
+
+secondAnimation = ()=> {
+  this.setState(prevState => ({
+    ...prevState,
+    showOption:true
+  }))
+  // Animated.timing(this.state.opacity, {
+  //   toValue: 1,
+  //   duration: 1800,
+  //   useNativeDriver:true
+
+  // }).start()
 }
 
 
@@ -76,15 +98,15 @@ fadeOut = ()=> {
             </Transition.Sequence>
           );
 
-        const {onPressCloseButton,fadeOut} = this
-        const {cardItems,opacity} = this.state
+        const {onPressCloseButton,selectOption} = this
+        const {cardItems,opacity,showOption,offset} = this.state
         const {navigation} = this.props
        
         return React.createElement(Presentational, {
             cardItems,            
             onPressCloseButton,
             transition,
-            navigation,opacity,fadeOut
+            navigation,opacity,selectOption,showOption,offset
         });
     }
 }

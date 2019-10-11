@@ -51,9 +51,9 @@ const Routes = createStackNavigator(
       Main: {
         screen: Pages,     
       },
-      NewProduct: {
-        screen: NewProductPage,     
-      },
+      // NewProduct: {
+      //   screen: NewProductPage,     
+      // },
     
 
     },{

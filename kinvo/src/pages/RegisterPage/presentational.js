@@ -16,10 +16,13 @@ import CardItem from "./components/CardItem";
 import Advertising from "./components/Advertising";
 import LastRegisters from "./components/LastRegisters"; 
 import { Transitioning, Transition } from 'react-native-reanimated'; 
+import NewProductPage from '../NewProductPage'
 
 export default function Presentational(props) {
-  const { cardItems,onPressCloseButton,transition,navigation,opacity,fadeOut } = props;
+  const { cardItems,onPressCloseButton,transition,navigation,opacity,selectOption,showOption,offset } = props;
   const ref = useRef();
+
+
 
   renderRegisters = () => {
   keyExtractor = item => item.title;
@@ -38,11 +41,20 @@ export default function Presentational(props) {
 
 
 
-  renderCardItem = ({ item }) => <CardItem cardItem={item} navigation={navigation} opacity={opacity} fadeOut={fadeOut}/>;
+  renderCardItem = ({ item }) => <CardItem cardItem={item} navigation={navigation} opacity={  opacity.interpolate({
+    inputRange: [0, 0.5,1],
+    outputRange: [1,0, 0]
+})} selectOption={selectOption}/>;
 
-  renderAdvertising = () => <Advertising opacity={opacity}/>;
+  renderAdvertising = () => <Advertising opacity={opacity.interpolate({
+    inputRange: [0, 0.5,1],
+    outputRange: [1,0, 0]
+})}/>;
 
-  renderLastRegisters = () => <LastRegisters opacity={opacity}/>;
+  renderLastRegisters = () => <LastRegisters opacity={opacity.interpolate({
+    inputRange: [0, 0.5,1],
+    outputRange: [1,0, 0]
+})}/>;
 
   renderTitleRegister = () => (
     <View style={styles.titleArea}>
@@ -69,14 +81,27 @@ export default function Presentational(props) {
     const registers = renderRegisters();
 
     return (
+      <View style={{flex:1}}>
+            <NewProductPage opacity={  opacity.interpolate({
+    inputRange: [0, 0.4,1],
+    outputRange: [0,0,1]
+})} offset={offset} showOption={showOption}/>
       <Animated.View style={[styles.registerScreen]}
       ref={ref}
       transition={transition}>
         {title}
+        
         {registers}
-        {closeArea}
+      
+       
+  
         
       </Animated.View>
+     
+      
+        {closeArea}
+
+      </View>
     );
   };
 

@@ -3,7 +3,13 @@ import metrics from "../../shared/styles/metrics";
 
 const styles = StyleSheet.create({
   container1: {
-    flex: 1
+    flex: 1,
+    position:'absolute',
+    top:185,
+    width:450,
+    zIndex:0
+
+
   },
   registerScreen: {
     flex: 1,

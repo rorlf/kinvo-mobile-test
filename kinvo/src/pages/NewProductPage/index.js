@@ -7,20 +7,19 @@ import { Animated,Easing } from "react-native";
 export default class Products extends Component {
   constructor(props) {
     super(props);
+    transY = new Animated.Value(0)
 
-    opacity = new Animated.Value(1.1)
-   
-
-    this.state = {cardItems,opacity}
+    this.state = {cardItems,transY}
 
   }
 
  
 
   componentDidMount() {
-    
 
   }
+
+ 
   onPressCloseButton = () => {
     const {navigation} = this.props
     return navigation.goBack()
@@ -33,11 +32,12 @@ export default class Products extends Component {
 
     const {onPressCloseButton} = this
     
-
+    
     return React.createElement(Presentational, {
       ...this.state,
       ...this.props,
       onPressCloseButton,
+      
      
     });
   }

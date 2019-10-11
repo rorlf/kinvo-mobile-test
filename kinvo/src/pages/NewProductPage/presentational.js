@@ -4,7 +4,8 @@ import {
   FlatList,
   View,
   TouchableOpacity,
-  Animated
+  Animated,
+  
 } from "react-native";
 import PropTypes from "prop-types";
 
@@ -13,10 +14,14 @@ import styles from "./styles";
 import { Transitioning, Transition } from 'react-native-reanimated'; 
 
 export default function Presentational(props) {
-  const { cardItems,onPressCloseButton,transition,navigation,opacity } = props;
-  const  {title, color, message,height}  = navigation.state.params
+  const { cardItems,onPressCloseButton,transition,navigation,opacity, transY} = props;
+  
+  const  [title, color, message,height]  =['Novo Produto','#36C4D6','testeee',112]
   const visible = false
   const ref = useRef();
+  
+  
+  
 
 
 
@@ -84,8 +89,11 @@ renderCard = () => {
   const divider = renderDivider();
   if(!visible){
   return (
-    <Animated.View style={{opacity:opacity}}>
-    <TouchableOpacity style={[styles.container,{height:height,}]}>
+    <Animated.View style={{opacity: opacity.interpolate({
+      inputRange: [0, 1],
+      outputRange: [1, 1]
+  })}}>
+    <TouchableOpacity style={[styles.container,{height:height,transform: [{ translateY: transY }]},]}>
       {titleAndIconAndButton}
       {divider}
       {messageText}
@@ -129,19 +137,80 @@ renderCard = () => {
 const card = renderCard();
 
 
+const newProductsItems = [{
+  key: 'Ações',   
+  color:'blue'
+},
+{
+  key: 'Debentures',
+  color:'green'
+
+},
+{
+  key: 'Bitcoin', 
+  color:'black'
+
+},
+{
+  key: 'Fundos',
+  color:'brown'
+
+}, 
+{
+  key: 'Renda Prefixada',
+  color:'orange'
+
+},
+{
+  key: 'Renda pos fixada', 
+  color:'pink'
+
+},
+{
+  key: 'Poupança',
+  color:'yellow'
+
+}, 
+{
+  key: 'Previdencia',
+  color:'grey'
+
+},   
+    
+
+]; 
 
     return (
-      <Transitioning.View style={styles.registerScreen}
+      <Animated.View  style={[styles.registerScreen,]}
       ref={ref}
       transition={transition}>
         <View>
-        {title}
-        {card}
+        {/* {card} */}
+        <Animated.View style={[{justifyContent:'center',alignItems:'center',opacity:opacity.interpolate({
+      inputRange: [0, 0.5,1],
+      outputRange: [0,0, 1]
+  })}]}>
+        <FlatList
+        style={{width:'100%'}}
+        data={newProductsItems}
+        renderItem={({item, index, separators}) => (
+          <TouchableOpacity
+          style={{justifyContent:'flex-start',flexDirection:'row',flex:1,height:30,width:'77%',borderColor:'grey',borderWidth:1,borderRadius:50,margin:15,padding:5,paddingLeft:30}}
+            >
+              
+            <View style={{backgroundColor: item.color,height:'100%',width:3,borderRadius:5,marginRight:10}}>              
+            </View>
+            <Text style={{}} >{item.key}</Text>
+
+          </TouchableOpacity>
+        )}
+        showsVerticalScrollIndicator={false}
+      />
+      </Animated.View>
         </View>
         
         
-        {closeArea}
-      </Transitioning.View>
+      </Animated.View >
     );
   };
 
