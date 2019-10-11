@@ -52,14 +52,23 @@ export default class CardItem extends Component {
     // alert(JSON.stringify(ref))
     ref.current._component.measure( (fx, fy, width, height, px, py) => {
 
-        console.log('Component width is: ' + width)
-        console.log('Component height is: ' + height)
-        console.log('X offset to frame: ' + fx)
-        // alert('Y offset to frame: ' + fy)
-        console.log('X offset to page: ' + px)
-        // alert('Y offset to page: ' + py)
-      this.upAnimation(py,height)
-    this.props.fadeOut()
+    //     console.log('Component width is: ' + width)
+    //     console.log('Component height is: ' + height)
+    //     console.log('X offset to frame: ' + fx)
+    //     // alert('Y offset to frame: ' + fy)
+    //     console.log('X offset to page: ' + px)
+    //     // alert('Y offset to page: ' + py)
+    //   this.upAnimation(py,height)
+    // this.props.fadeOut()
+    this.setState(prevState => ({ ...prevState, animating: true }));
+
+    navigation = this.props.navigation
+    navigation.navigate('NewProduct',{
+        title:this.props.cardItem.title, 
+        color:this.props.cardItem.color, 
+        message:this.props.cardItem.message,
+        height:height
+      })
 
 
     })
@@ -68,12 +77,14 @@ export default class CardItem extends Component {
     // this.setState({color})
     // setTimeout(()=>{navigation = this.props.navigation
     //     navigation.navigate('NewProduct')},2000)
+
+  
     
   }
   render() {
 
    const onPress = this.onPress
-   const {transY} = this.state
+   const {transY,animating} = this.state
 
    let opacidade
    if(this.state.animating==false){
@@ -86,6 +97,7 @@ export default class CardItem extends Component {
         onPress,
         transY,
         opacidade,
+        animating
     });
 }
 }

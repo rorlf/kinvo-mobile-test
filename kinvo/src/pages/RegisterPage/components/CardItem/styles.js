@@ -2,8 +2,7 @@ import { StyleSheet } from "react-native";
 import metrics from '../../../../shared/styles/metrics'
 
 const styles = StyleSheet.create({
-  container: {
-    
+  container: {        
     borderColor: "#DAE0E3",
     borderWidth: metrics.border,
     flex: 1,
@@ -28,7 +27,6 @@ const styles = StyleSheet.create({
   titleAndIconAndPlusButtonArea: {
     flex: 1,
     flexDirection: "row",
-    alignContent: "space-around",
     marginTop: metrics.space15X
 
   },

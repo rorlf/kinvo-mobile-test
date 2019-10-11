@@ -2,15 +2,16 @@ import React,{ useState, useRef }  from "react";
 import PropTypes from "prop-types";
 import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
 import styles from "./styles";
-import { Transitioning, Transition } from 'react-native-reanimated'; 
+
 import { Animated,Easing } from "react-native";
+import { FluidNavigator, Transition } from 'react-navigation-fluid-transitions';
 
 
 
 
 export default function Presentational(props) {
   const { title, color, message } = props.cardItem;
-  const {visible,onPress,transY,opacidade} = props
+  const {visible,onPress,transY,opacidade,animating} = props
   const ref = useRef();
 
  
@@ -50,12 +51,14 @@ export default function Presentational(props) {
     const plusButton = renderPlusButton();
 
     return (
+
       <View
         style={styles.titleAndIconAndPlusButtonArea}
       >
         {titleAndIcon}
         {plusButton}
       </View>
+     
     );
   };
 
@@ -77,43 +80,40 @@ export default function Presentational(props) {
     const titleAndIconAndButton = renderTitleAndIconAndPlusButtonCard();
     const messageText = renderMessage();
     const divider = renderDivider();
-    if(!visible){
+   if(animating)
     return (
-      <TouchableOpacity onPress={()=> onPress(ref)}>
+    <Transition shared='logo'>
+      <TouchableOpacity  style={styles.container} onPress={()=> onPress(ref)}>
         {titleAndIconAndButton}
         {divider}
         {messageText}
       </TouchableOpacity>
+      </Transition>
     );
-  }
+    return(
+      <TouchableOpacity  style={styles.container} onPress={()=> onPress(ref)}>
+      {titleAndIconAndButton}
+      {divider}
+      {messageText}
+    </TouchableOpacity>
+    )
+  
   };
 
 
 
   const card = renderCard();
 
-  const transition = (
-    <Transition.Sequence>
-      <Transition.Out type="slide-left" durationMs={4000} interpolation="easeIn" />
-      <Transition.Change />
-      <Transition.Together>
-        <Transition.In
-          type="slide-left"
-          durationMs={40000}
-          interpolation="easeOut"
-          propagation="bottom"
-        />
-        <Transition.In type="slide-left" durationMs={20000} delayMs={200} />
-      </Transition.Together>
-    </Transition.Sequence>
-  );
 
   return <Animated.View 
   ref={ref}
-      transition={transition}
-      style={[styles.container,{transform: [{ translateY: transY }],opacity:opacidade}]}
+     
+      style={[{transform: [{ translateY: transY }],opacity:opacidade}]}
       
-      >{card}
+      >
+
+      {card}
+     
       
       </Animated.View>;
 }

@@ -12,7 +12,8 @@ import Working from "../pages/WorkingPage";
 import RegisterPage from "../pages/RegisterPage";
 import NewProductPage from "../pages/NewProductPage";
 
-import { Transition } from 'react-native-reanimated';
+import { FluidNavigator, Transition } 
+from 'react-navigation-fluid-transitions';
 
 const Pages = createBottomTabNavigator(
   {
@@ -43,7 +44,7 @@ const Pages = createBottomTabNavigator(
 );
 
 
-const Routes = createStackNavigator(
+const Routes = FluidNavigator(
     { 
     Register: {
         screen: RegisterPage,      

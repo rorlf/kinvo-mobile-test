@@ -21,6 +21,7 @@
     "react-navigation": "^4.0.10",
     "react-navigation-animated-switch": "^0.3.2",
     "react-navigation-drawer": "^2.2.2",
+    "react-navigation-fluid-transitions": "^0.3.2",
     "react-navigation-stack": "^1.9.3",
     "react-navigation-tabs": "^2.5.5",
     "reactotron-react-native": "^4.0.1"

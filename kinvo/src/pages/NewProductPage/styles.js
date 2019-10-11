@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     width: "90%",
     alignSelf: "center",
     marginBottom: metrics.space15X,
-    marginTop: metrics.space15X
+    marginTop: metrics.space15X,
   },
    message: {
     marginLeft: metrics.space15X,
@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
   titleAndIconAndPlusButtonArea: {
     flex: 1,
     flexDirection: "row",
-    alignContent: "space-around",
     marginTop: metrics.space15X
 
   },
