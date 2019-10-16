@@ -67,7 +67,7 @@ export default class CardItem extends Component {
         title:this.props.cardItem.title, 
         color:this.props.cardItem.color, 
         message:this.props.cardItem.message,
-        height:height
+        height:height     
       })
 
 

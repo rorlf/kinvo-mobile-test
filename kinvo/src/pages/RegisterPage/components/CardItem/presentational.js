@@ -14,8 +14,8 @@ export default function Presentational(props) {
   const {visible,onPress,transY,opacidade,animating} = props
   const ref = useRef();
 
- 
 
+ 
 
   renderCardName = () => (    
       <Text style={styles.cardName}>{title}</Text>   
@@ -82,7 +82,7 @@ export default function Presentational(props) {
     const divider = renderDivider();
    if(animating)
     return (
-    <Transition shared='logo'>
+    <Transition shared={title}>
       <TouchableOpacity  style={styles.container} onPress={()=> onPress(ref)}>
         {titleAndIconAndButton}
         {divider}
