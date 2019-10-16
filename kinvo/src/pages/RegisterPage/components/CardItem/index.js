@@ -20,15 +20,16 @@ export default class CardItem extends Component {
    
 
     await Animated.sequence([
-        Animated.timing(this.state.transY, {
-            toValue: 20,
-            duration: 300,
-            useNativeDriver:true
-          }),   
+        // Animated.timing(this.state.transY, {
+        //     toValue: 20,
+        //     duration: 300,
+        //     useNativeDriver:true
+        //   }),   
         Animated.timing(this.state.transY, {
             toValue: offset,
             duration: 900,
-            useNativeDriver:true
+            useNativeDriver:true,
+            easing:Easing.back(1.2)
 
           }),          
                
